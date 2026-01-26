@@ -70,9 +70,11 @@ function userAddBook() {
 
     const submit = document.createElement('button');
         submit.setAttribute('type', 'submit');
+        submit.textContent = 'Submit';
 
     const cancel = document.createElement('button');
         cancel.classList.add('cancelButton');
+        cancel.textContent = 'Cancel';
 
     newForm.appendChild(titleInput);
     newForm.appendChild(authorInput);

@@ -1,6 +1,8 @@
 const myLibrary = [];
 
 let myForm;
+let cancelButton;
+let addBook = document.querySelector('.addBook');
 
 function Book(title, author, pages, status) {
     if (!new.target) {
@@ -42,10 +44,8 @@ function userAddBook() {
         books.forEach(book => {
             toggleHidden(book);
         }) 
-    } else {
-    
-    }
-    const addBook = document.querySelector('.addBook');
+    } 
+
     toggleHidden(addBook);
 
     myForm = document.createElement('form');
@@ -74,15 +74,33 @@ function userAddBook() {
         submit.setAttribute('type', 'submit');
         submit.textContent = 'Submit';
 
-    const cancel = document.createElement('button');
-        cancel.classList.add('cancelButton');
-        cancel.textContent = 'Cancel';
+    cancelButton = document.createElement('button');
+        cancelButton.classList.add('cancelButton');
+        cancelButton.textContent = 'Cancel';
 
     myForm.appendChild(titleInput);
     myForm.appendChild(authorInput);
     myForm.appendChild(pagesInput);
     myForm.appendChild(readInput);
     myForm.appendChild(submit);
-    myForm.appendChild(cancel);
+    myForm.appendChild(cancelButton);
     document.body.appendChild(myForm);
+
+    cancelButton.addEventListener("click", function (event) {
+        event.preventDefault();
+        if (myForm) {
+            myForm.remove();
+            if (books) {
+                books.forEach(book => {
+                    toggleHidden(book);
+                }) 
+            } 
+            toggleHidden(addBook);
+        }
+    })
 }
+
+addBook.addEventListener("click", function (event) {
+    event.preventDefault();
+    userAddBook();
+});

@@ -30,5 +30,32 @@ function displayBooks() {
     }
 }
 
+function toggleHidden(target) {
+    target.classList.toggle('hidden');
+}
 
+
+function userAddBook() {
+    toggleHidden(document.querySelectorAll('.book'))
+
+    const newForm = document.createElement('form');
+        newForm.setAttribute('id', 'myForm');
+
+    const titleInput = document.createElement('input');
+        titleInput.setAttribute('type', 'text');
+        titleInput.setAttribute('name', 'title');
+        titleInput.setAttribute('placeholder', 'Book Title');
+
+    const authorInput = document.createElement('input');
+        authorInput.setAttribute('type', 'text');
+        authorInput.setAttribute('name', 'author');
+        authorInput.setAttribute('placeholder', 'Author');
+
+    const pagesInput = document.createElement('input');
+        pagesInput.setAttribute('type', 'text');
+        pagesInput.setAttribute('name', 'pageNum');
+        pagesInput.setAttribute('placeholder', 'Number of Pages')
+
+    const readInput = document.createElement('button');
+}
     

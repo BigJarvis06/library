@@ -18,3 +18,7 @@ button {
     border: 3px black solid;
     border-radius: 0.5rem;
 }
+
+.hidden {
+    display: none;
+}

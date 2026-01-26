@@ -1,5 +1,7 @@
 const myLibrary = [];
 
+let myForm;
+
 function Book(title, author, pages, status) {
     if (!new.target) {
         throw Error('make sure to use New');
@@ -46,8 +48,8 @@ function userAddBook() {
     const addBook = document.querySelector('.addBook');
     toggleHidden(addBook);
 
-    const newForm = document.createElement('form');
-        newForm.setAttribute('id', 'myForm');
+    myForm = document.createElement('form');
+        myForm.setAttribute('id', 'myForm');
 
     const titleInput = document.createElement('input');
         titleInput.setAttribute('type', 'text');
@@ -76,12 +78,11 @@ function userAddBook() {
         cancel.classList.add('cancelButton');
         cancel.textContent = 'Cancel';
 
-    newForm.appendChild(titleInput);
-    newForm.appendChild(authorInput);
-    newForm.appendChild(pagesInput);
-    newForm.appendChild(readInput);
-    newForm.appendChild(submit);
-    newForm.appendChild(cancel);
-    document.body.appendChild(newForm);
+    myForm.appendChild(titleInput);
+    myForm.appendChild(authorInput);
+    myForm.appendChild(pagesInput);
+    myForm.appendChild(readInput);
+    myForm.appendChild(submit);
+    myForm.appendChild(cancel);
+    document.body.appendChild(myForm);
 }
-    

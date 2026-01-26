@@ -1,0 +1,20 @@
+body {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(33%, 1fr));
+    grid-template-rows: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 1rem;
+}
+
+button {
+    min-width: -webkit-fill-available;
+    font-size: 2rem;
+    justify-self: center;
+    padding: 2rem;
+}
+
+.book {
+    font-size: 2rem;
+    padding: 2rem;
+    border: 3px black solid;
+    border-radius: 0.5rem;
+}

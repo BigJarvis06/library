@@ -19,3 +19,16 @@ function addBookToLibrary(title, author, pages, status) {
     let newBook = new Book(title, author, pages, status);
     myLibrary.push(newBook);
 }
+
+function displayBooks() {
+    for (const book of myLibrary) {
+            const newDiv = document.createElement('div');
+            newDiv.classList.add('book');
+            newDiv.textContent = `${book.title} by ${book.author}, ${book.pages} pages, ${book.status}`;
+            const body = document.querySelector('body');
+            body.appendChild(newDiv);
+    }
+}
+
+
+    

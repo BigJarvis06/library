@@ -34,9 +34,17 @@ function toggleHidden(target) {
     target.classList.toggle('hidden');
 }
 
-
 function userAddBook() {
-    toggleHidden(document.querySelectorAll('.book'))
+    const books = document.querySelectorAll('.book');
+    if (books) {
+        books.forEach(book => {
+            toggleHidden(book);
+        }) 
+    } else {
+    
+    }
+    const addBook = document.querySelector('.addBook');
+    toggleHidden(addBook);
 
     const newForm = document.createElement('form');
         newForm.setAttribute('id', 'myForm');
@@ -56,6 +64,22 @@ function userAddBook() {
         pagesInput.setAttribute('name', 'pageNum');
         pagesInput.setAttribute('placeholder', 'Number of Pages')
 
-    const readInput = document.createElement('button');
+    const readInput = document.createElement('input');
+        readInput.setAttribute('name', 'readStatus')
+        readInput.setAttribute('type', 'checkbox');
+
+    const submit = document.createElement('button');
+        submit.setAttribute('type', 'submit');
+
+    const cancel = document.createElement('button');
+        cancel.classList.add('cancelButton');
+
+    newForm.appendChild(titleInput);
+    newForm.appendChild(authorInput);
+    newForm.appendChild(pagesInput);
+    newForm.appendChild(readInput);
+    newForm.appendChild(submit);
+    newForm.appendChild(cancel);
+    document.body.appendChild(newForm);
 }
     

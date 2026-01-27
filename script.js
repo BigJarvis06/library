@@ -25,10 +25,28 @@ function addBookToLibrary(title, author, pages, status) {
 }
 
 function displayBooks() {
+    const books = document.querySelectorAll('.book');
+    books.forEach(book => {
+        book.remove();
+    })
     for (const book of myLibrary) {
             const newDiv = document.createElement('div');
             newDiv.classList.add('book');
-            newDiv.textContent = `${book.title} by ${book.author}, ${book.pages} pages, ${book.status}`;
+            if (!book.author && !book.pages && !book.status) {
+                newDiv.textContent = `${book.title}`;
+            } else if (!book.pages && !book.status) {
+                newDiv.textContent = `${book.title} by ${book.author}`;
+            } else if (!book.author && !book.pages) {
+                newDiv.textContent = `${book.title}, ${book.status}`;
+            } else if (!book.status && !book.author) {
+                newDiv.textContent = `${book.title}, ${book.pages} pages`;
+            } else if (!book.pages) {
+                newDiv.textContent = `${book.title} by ${book.author}, ${book.status}`;
+            } else if (!book.status) {
+                newDiv.textContent = `${book.title} by ${book.author}, ${book.pages} pages`;
+            } else {
+                newDiv.textContent = `${book.title} by ${book.author}, ${book.pages} pages, ${book.status}`;
+            }
             const body = document.querySelector('body');
             body.appendChild(newDiv);
     }
@@ -40,7 +58,8 @@ function toggleHidden(target) {
 
 function userAddBook() {
     const books = document.querySelectorAll('.book');
-    if (books) {
+    const hasBooks = document.querySelector('.book');
+    if (hasBooks) {
         books.forEach(book => {
             toggleHidden(book);
         }) 
@@ -62,7 +81,7 @@ function userAddBook() {
         authorInput.setAttribute('placeholder', 'Author');
 
     const pagesInput = document.createElement('input');
-        pagesInput.setAttribute('type', 'text');
+        pagesInput.setAttribute('type', 'number');
         pagesInput.setAttribute('name', 'pageNum');
         pagesInput.setAttribute('placeholder', 'Number of Pages')
 
@@ -97,6 +116,33 @@ function userAddBook() {
             } 
             toggleHidden(addBook);
         }
+    })
+
+    myForm.addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        const formData = new FormData(myForm);
+        const dataObj = Object.fromEntries(formData.entries());
+        let pageNum = dataObj.pageNum;
+        let pagesStr = pageNum.toString();
+        let readStatus = dataObj.readStatus;
+        if (!readStatus) {
+            readStatus = "not read";
+        } else {
+            readStatus = "read";
+        }
+        if (!dataObj.title) {
+            alert('Please provide a title');
+        } else {
+        addBookToLibrary(dataObj.title, dataObj.author, pagesStr, readStatus);
+        if (myForm) {
+            myForm.remove();
+            if (books) {
+                displayBooks()
+            } 
+            toggleHidden(addBook);
+        }
+    }
     })
 }
 

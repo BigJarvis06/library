@@ -19,7 +19,7 @@ form {
     grid-template-columns: repeat(3, 1fr);
 }
 
-input[type='text'] {
+input[type='text'], input[type='number'] {
     font-size: 2rem;
     padding: 1rem;
     border: 3px solid black;

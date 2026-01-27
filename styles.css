@@ -1,5 +1,9 @@
 body {
     display: grid;
+}
+
+.bookWrapper {
+    display: grid;
     grid-template-columns: repeat(auto-fit, minmax(33%, 1fr));
     grid-template-rows: repeat(auto-fit, minmax(100px, 1fr));
     gap: 1rem;

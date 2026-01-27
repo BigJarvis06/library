@@ -3,6 +3,8 @@ const myLibrary = [];
 let myForm;
 let cancelButton;
 let addBook = document.querySelector('.addBook');
+let body = document.body;
+let bookCards = document.querySelector('.bookWrapper');
 
 function Book(title, author, pages, status) {
     if (!new.target) {
@@ -19,6 +21,15 @@ function Book(title, author, pages, status) {
     }
 }
 
+function removeBook(id) {
+    for (const book of myLibrary) {
+        if (book.id === id) {
+            const bookIndex = myLibrary.indexOf(book);
+            myLibrary.splice(bookIndex, 1);
+        }
+    }
+}
+
 function addBookToLibrary(title, author, pages, status) {
     let newBook = new Book(title, author, pages, status);
     myLibrary.push(newBook);
@@ -30,7 +41,9 @@ function displayBooks() {
         book.remove();
     })
     for (const book of myLibrary) {
+            const currentId = book.id;
             const newDiv = document.createElement('div');
+            newDiv.setAttribute('id', currentId);
             newDiv.classList.add('book');
             if (!book.author && !book.pages && !book.status) {
                 newDiv.textContent = `${book.title}`;
@@ -47,10 +60,21 @@ function displayBooks() {
             } else {
                 newDiv.textContent = `${book.title} by ${book.author}, ${book.pages} pages, ${book.status}`;
             }
-            const body = document.querySelector('body');
-            body.appendChild(newDiv);
+            const deleteButton = document.createElement('button');
+            deleteButton.setAttribute('id', 'deleteButton');
+            newDiv.appendChild(deleteButton);
+            bookCards.appendChild(newDiv);
     }
 }
+
+bookCards.addEventListener('click', function(event) {
+    if (event.target.id === "deleteButton") {
+        const card = event.target.closest('.book');
+        const bookId = card.id;
+        removeBook(bookId);
+        displayBooks();
+    }
+})
 
 function toggleHidden(target) {
     target.classList.toggle('hidden');

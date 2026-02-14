@@ -44,35 +44,52 @@ function displayBooks() {
             const currentId = book.id;
             const newDiv = document.createElement('div');
             newDiv.setAttribute('id', currentId);
+
+            const currentStatus = book.status.replace(/\s+/g, '');
+
             newDiv.classList.add('book');
-            if (!book.author && !book.pages && !book.status) {
+            if (!book.author && !book.pages) {
                 newDiv.textContent = `${book.title}`;
-            } else if (!book.pages && !book.status) {
-                newDiv.textContent = `${book.title} by ${book.author}`;
-            } else if (!book.author && !book.pages) {
-                newDiv.textContent = `${book.title}, ${book.status}`;
-            } else if (!book.status && !book.author) {
-                newDiv.textContent = `${book.title}, ${book.pages} pages`;
             } else if (!book.pages) {
-                newDiv.textContent = `${book.title} by ${book.author}, ${book.status}`;
-            } else if (!book.status) {
-                newDiv.textContent = `${book.title} by ${book.author}, ${book.pages} pages`;
+                newDiv.textContent = `${book.title} by ${book.author}`;
+            } else if (!book.author) {
+                newDiv.textContent = `${book.title}, ${book.pages} pages`;
             } else {
-                newDiv.textContent = `${book.title} by ${book.author}, ${book.pages} pages, ${book.status}`;
+                newDiv.textContent = `${book.title} by ${book.author}, ${book.pages} pages`;
             }
+
             const deleteButton = document.createElement('button');
             deleteButton.setAttribute('id', 'deleteButton');
+            deleteButton.textContent = 'Delete';
             newDiv.appendChild(deleteButton);
+
+            const readButton = document.createElement('button');
+            readButton.setAttribute('id', 'readButton');
+            readButton.classList.add(currentStatus.toLowerCase());
+            readButton.textContent = `${book.status}`;
+            newDiv.appendChild(readButton);
+
             bookCards.appendChild(newDiv);
     }
 }
 
 bookCards.addEventListener('click', function(event) {
-    if (event.target.id === "deleteButton") {
+    if (event.target.id === 'deleteButton') {
         const card = event.target.closest('.book');
         const bookId = card.id;
         removeBook(bookId);
         displayBooks();
+    } else if (event.target.id === 'readButton') {
+        const readButton = event.target;
+        if (readButton.classList.contains('notread')) {
+            readButton.classList.remove('notread');
+            readButton.classList.add('read')
+            readButton.textContent = 'Read';
+        } else {
+            readButton.classList.remove('read');
+            readButton.classList.add('notread');
+            readButton.textContent = 'Not read';
+        }
     }
 })
 
@@ -151,9 +168,9 @@ function userAddBook() {
         let pagesStr = pageNum.toString();
         let readStatus = dataObj.readStatus;
         if (!readStatus) {
-            readStatus = "not read";
+            readStatus = "Not read";
         } else {
-            readStatus = "read";
+            readStatus = "Read";
         }
         if (!dataObj.title) {
             alert('Please provide a title');
